@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { getPosts } from "../services/api";
 
+import { createPost } from "../services/api";
+
 interface Post {
   id: number;
   title: string;
@@ -21,6 +23,39 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, []);
 
+  const [form, setForm] = useState({
+  title: "",
+  content: "",
+  image: "",
+});
+
+const handleChange = (e) => {
+  setForm({
+    ...form,
+    [e.target.name]: e.target.value,
+  });
+};
+
+//Formulario
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const newPost = await createPost(form);
+    setPosts([newPost, ...posts]);
+
+    setForm({
+      title: "",
+      content: "",
+      image: "",
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+
   if (loading) return <p className="text-center mt-10">Cargando...</p>;
 
   return (
@@ -28,6 +63,48 @@ export default function Home() {
       <h1 className="text-3xl font-bold mb-6 text-center">
         📰 Blog de Noticias
       </h1>
+
+      <form
+  onSubmit={handleSubmit}
+  className="bg-gray-100 p-4 rounded-xl mb-6 shadow"
+>
+  <h2 className="text-xl font-semibold mb-3">Crear Post</h2>
+
+  <input
+    type="text"
+    name="title"
+    placeholder="Título"
+    value={form.title}
+    onChange={handleChange}
+    className="w-full mb-2 p-2 border rounded"
+    required
+  />
+
+  <textarea
+    name="content"
+    placeholder="Contenido"
+    value={form.content}
+    onChange={handleChange}
+    className="w-full mb-2 p-2 border rounded"
+    required
+  />
+
+  <input
+    type="text"
+    name="image"
+    placeholder="URL de imagen"
+    value={form.image}
+    onChange={handleChange}
+    className="w-full mb-2 p-2 border rounded"
+  />
+
+  <button
+    type="submit"
+    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+  >
+    Crear
+  </button>
+</form>
 
       <div className="grid md:grid-cols-3 gap-6">
         {posts.map(post => (

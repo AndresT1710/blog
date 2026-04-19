@@ -4,3 +4,15 @@ export const getPosts = async () => {
   const res = await fetch(API_URL);
   return res.json();
 };
+
+export const createPost = async (data) => {
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return res.json();
+};
