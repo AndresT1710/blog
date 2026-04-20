@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getPosts, createPost, updatePost, deletePost } from "../services/api";
 import Link from "next/link";
+import { translations } from "../lib/i18n";
 
 interface Post {
   id: number;
@@ -27,6 +28,9 @@ export default function Home() {
     content: "",
     image: "",
   });
+
+  const [lang, setLang] = useState<"es" | "en">("es");
+  const t = translations[lang];
 
   useEffect(() => {
     getPosts()
@@ -75,15 +79,25 @@ export default function Home() {
     setPosts(posts.filter((post) => post.id !== id));
   };
 
-  if (loading) return <p className="text-center mt-10">Cargando...</p>;
+  if (loading) return <p className="text-center mt-10">{t.loading}</p>;
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">📰 Blog de Noticias</h1>
+
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={() => setLang(lang === "es" ? "en" : "es")}
+          className="bg-gray-800 text-white px-3 py-1 rounded"
+        >
+          {lang === "es" ? "EN" : "ES"}
+        </button>
+      </div>
+
+      <h1 className="text-3xl font-bold mb-6 text-center">{t.title}</h1>
 
       <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded-xl mb-6 shadow">
         <h2 className="text-xl font-semibold mb-3">
-          {editingId !== null ? "Editar Post" : "Crear Post"}
+          {editingId !== null ? t.editPost : t.createPost}
         </h2>
         <input
           type="text"
@@ -114,7 +128,7 @@ export default function Home() {
           type="submit"
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
-          {editingId !== null ? "Actualizar" : "Crear"}
+          {editingId !== null ? t.editPost : t.createPost}
         </button>
       </form>
 
@@ -139,13 +153,13 @@ export default function Home() {
                 onClick={() => handleEdit(post)}
                 className="text-blue-500 hover:underline"
               >
-                Editar
+                {t.edit}
               </button>
               <button
                 onClick={() => handleDelete(post.id)}
                 className="text-red-500 hover:underline"
               >
-                Eliminar
+                {t.delete}
               </button>
             </div>
           </div>
