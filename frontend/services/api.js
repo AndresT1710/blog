@@ -34,3 +34,8 @@ export const updatePost = async (id, data) => {
 
   return res.json();
 };
+
+export const getPostById = async (id) => {
+  const res = await fetch(`${API_URL}/${id}`);
+  return res.json();
+};

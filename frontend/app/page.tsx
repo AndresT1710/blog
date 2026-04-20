@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getPosts, createPost, updatePost, deletePost } from "../services/api";
+import Link from "next/link";
 
 interface Post {
   id: number;
@@ -14,7 +15,7 @@ interface PostForm {
   title: string;
   content: string;
   image: string;
-  
+
 }
 
 export default function Home() {
@@ -119,10 +120,9 @@ export default function Home() {
 
       <div className="grid md:grid-cols-3 gap-6">
         {posts.map((post) => (
-          <div
-            key={post.id}
-            className="bg-white shadow-lg rounded-2xl p-4 hover:scale-105 transition"
-          >
+          <Link href={`/posts/${post.id}`}>
+
+            <div className="bg-white shadow-lg rounded-2xl p-4 hover:scale-105 transition cursor-pointer">
             {post.image && (
               <img
                 src={post.image}
@@ -149,6 +149,7 @@ export default function Home() {
               </button>
             </div>
           </div>
+          </Link>
         ))}
       </div>
     </div>
