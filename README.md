@@ -25,7 +25,7 @@ Además, incluye soporte de internacionalización (Español / Inglés) y una int
 
 ---
 
-## 🛠️ Tecnologías utilizadas
+##  Tecnologías utilizadas
 
 ### Frontend
 
@@ -111,8 +111,8 @@ http://localhost:3000
 * No se implementó autenticación, ya que no era requerida en la prueba.
 
 
-## 👨‍💻 Autor
+## Autor
 
-Desarrollado por Andrés Tacuamán como prueba técnica para posición de desarrollador web.
+Desarrollado por Andrés Tacuamán
 
 ---
