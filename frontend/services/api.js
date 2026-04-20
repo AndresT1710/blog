@@ -1,4 +1,5 @@
 const API_URL = "http://localhost:4000/api/posts";
+//const API_URL = "https://blog-x9jg.onrender.com";
 
 export const getPosts = async () => {
   const res = await fetch(API_URL);
