@@ -16,3 +16,21 @@ export const createPost = async (data) => {
 
   return res.json();
 };
+
+export const deletePost = async (id) => {
+  await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+  });
+};
+
+export const updatePost = async (id, data) => {
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return res.json();
+};
